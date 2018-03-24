@@ -1,0 +1,45 @@
+<div class="loader" *ngIf="loading">
+  <div class="spinner-container" >
+    <div class="spinner spiral"></div>
+  </div>
+</div>
+<div class="container">
+  <div class="upload-window" *ngIf="!processed">
+    <div class="title">Upload your image</div>
+    <div class="button-wrapper">
+      <input type="file" (change)="processFile($event)" hidden #file />
+      <button class="upload-btn" (click)="process()">Select an Image</button>
+      <div>Image should be of width and height 1024px and 1024px respectively</div>
+    </div>
+  </div>
+  <div class="img-preview-wrapper" *ngIf="data">
+    <div class="og-wrapper">
+      <div class="title">Original Image</div>
+      <img [src]="data" alt="Preview" />
+
+    </div>
+
+    <div class="cropped-imgs-wrapper" *ngIf="cropData.length">
+      <div class="title">Select an image to upload</div>
+      <div class="img-wrapper">
+        <div class="img-container" *ngFor="let cImgs of cropData;let i=index">
+          <img [src]="cImgs.uri" [class.active]="active==i" (click)="setCropImage(cImgs.uri,cImgs.type,i)" [alt]="cImgs.width + 'x' + cImgs.height"
+            [title]="cImgs.width + 'x' + cImgs.height" [width]="(cImgs.width / 2)" [height]="cImgs.height/2" />
+          <div>{{cImgs.type}}</div>
+        </div>
+      </div>
+      <div class="btn-wrapper">
+        <button class="upload-btn" [disabled]="!selectedURI" (click)="sendData()">Upload</button>
+        <button class="upload-btn" (click)="sendAllData()">Upload All</button>
+        <button class="upload-btn" (click)="clearImage()">Clear</button>
+      </div>
+    </div>
+
+    <div class="links-wrapper" *ngIf="links.length">
+      <div class="title">Links</div>
+      <div class="link-container" *ngFor="let link of links">
+        <a [href]="sanitizeUrl(link.url)" target="_blank">{{ link.type }}</a>
+      </div>
+    </div>
+  </div>
+</div>
