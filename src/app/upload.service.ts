@@ -8,7 +8,7 @@ export class UploadService {
   constructor(private http:HttpClient) { }
 
   uploadImages(uri:any){
-    return this.http.post("/", {"data":uri});
+    return this.http.post("/", {"data":uri}); //sends a post request to server and receives a JSON response which is parsed in the component itself
   }
 
 }

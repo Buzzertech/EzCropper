@@ -1,9 +1,12 @@
+<!--CSS Loader-->
 <div class="loader" *ngIf="loading">
-  <div class="spinner-container" >
+  <div class="spinner-container">
     <div class="spinner spiral"></div>
   </div>
 </div>
+<!--Page starts here-->
 <div class="container">
+  <!--Select images wrapper-->
   <div class="upload-window" *ngIf="!processed">
     <div class="title">Upload your image</div>
     <div class="button-wrapper">
@@ -12,11 +15,12 @@
       <div>Image should be of width and height 1024px and 1024px respectively</div>
     </div>
   </div>
+
+  <!--After selecting images, image previews are shown below-->
   <div class="img-preview-wrapper" *ngIf="data">
     <div class="og-wrapper">
       <div class="title">Original Image</div>
       <img [src]="data" alt="Preview" />
-
     </div>
 
     <div class="cropped-imgs-wrapper" *ngIf="cropData.length">
@@ -28,6 +32,7 @@
           <div>{{cImgs.type}}</div>
         </div>
       </div>
+
       <div class="btn-wrapper">
         <button class="upload-btn" [disabled]="!selectedURI" (click)="sendData()">Upload</button>
         <button class="upload-btn" (click)="sendAllData()">Upload All</button>
@@ -41,5 +46,6 @@
         <a [href]="sanitizeUrl(link.url)" target="_blank">{{ link.type }}</a>
       </div>
     </div>
+    
   </div>
 </div>
